@@ -49,12 +49,18 @@ class TaskStorage:
     def load_tasks(self) -> list[Task]:
         if not self.filename.exists():
             return []
-        with self.filename.open('r', encoding="utf-8") as f:
-            data = json.load(f)
-            return [Task.from_dict(d) for d in data]
+        try:
+            with self.filename.open("r", encoding="utf-8") as f:
+                content = f.read().strip()
+                if not content:
+                    return []
+                data = json.loads(content)
+                return [Task.from_dict(item) for item in data]
+        except json.JSONDecodeError:
+            return []
     
     def save_tasks(self) -> None:
-        with self.filename.open('r', encoding="utf-8") as f:
+        with self.filename.open('w', encoding="utf-8") as f:
             json.dump([t.to_dict() for t in self.tasks], f, indent=2)
 
     def _next_id(self) -> int:

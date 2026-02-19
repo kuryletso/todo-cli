@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 from collections.abc import Sequence
-from models import Task, Status
+from todo.models import Task, Status
 
 RESET = "\033[0m"
 BG_COLOR = "\033[46m"

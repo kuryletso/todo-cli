@@ -3,10 +3,10 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 import sys
 
-from models import TaskStorage, Status
-from config import Config
-from week import render_week
-from month import render_month
+from todo.models import TaskStorage, Status
+from todo.config import Config
+from todo.week import render_week
+from todo.month import render_month
 
 # UTILITIES
 
@@ -29,7 +29,7 @@ def handle_add(args):
     task = storage.add_task(
         title=args.title,
         description=args.description,
-        task_date=args.date,
+        task_date=task_date,
     )
     print(f"Task created with ID {task.id}")
 

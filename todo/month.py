@@ -2,7 +2,7 @@ from datetime import date
 from calendar import monthrange
 from collections.abc import Sequence
 
-from models import Task
+from todo.models import Task
 
 
 WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
