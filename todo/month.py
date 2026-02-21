@@ -43,7 +43,7 @@ def render_month(
     
     lines = []
     # Header
-    lines.append(f"{date(year,month,1)}:%B %Y")
+    lines.append(f"{date(year,month,1):%B %Y}")
     lines.append(" ".join(f"{wd:^3}" for wd in WEEKDAYS))
 
     current_week = ["   "] * first_weekday

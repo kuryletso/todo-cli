@@ -92,7 +92,7 @@ def handle_list(args):
 
     for t in tasks:
         print(
-            f"{t.id:<4} {t.task_date.isoformat():12}"
+            f"{t.id:<4} {t.task_date.isoformat():12} "
             f"{t.status.value:<10} {t.title}"
         )
 
@@ -122,7 +122,7 @@ def shift_month(base_date: date, months: int) -> tuple[int, int]:
         month -= 12
         year += 1
     
-    while months < 1:
+    while month < 1:
         month += 12
         year -= 1
 

@@ -3,7 +3,7 @@ from collections.abc import Sequence
 from todo.models import Task, Status
 
 RESET = "\033[0m"
-BG_COLOR = "\033[46m"
+BG_COLOR = "\u001b[40m" #"\033[46m"
 STATUS_COLORS = {
     Status.ACTIVE: "\033[93m",      # yellow
     Status.DONE: "\033[92m",      # green
@@ -64,13 +64,12 @@ def render_week(
             column_lines.append(colored)
 
         columns.append(column_lines)
-
     max_height = max(len(col) for col in columns)
 
     for col in columns:
         while len(col) < max_height:
             col.append("")
-    
+    print(columns)    
     # Render row by row
     lines = []
     border = _build_border()

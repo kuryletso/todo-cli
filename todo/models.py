@@ -36,7 +36,7 @@ class Task:
             title=data["title"],
             description=data.get("description"),
             created_at=datetime.fromisoformat(data["created_at"]),
-            task_date=datetime.fromisoformat(data["task_date"]),
+            task_date=date.fromisoformat(data["task_date"]),
             status=Status(data.get("status", "active"))
         )
 

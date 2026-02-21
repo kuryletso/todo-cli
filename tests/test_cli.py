@@ -49,3 +49,31 @@ def test_cli_list_outputs_tasks(tmp_path, monkeypatch, capsys):
 
     captured = capsys.readouterr()
     assert "CLI Task" in captured.out
+
+def test_cli_week(tmp_path, monkeypatch, capsys):
+    task_file = tmp_path / "tasks.json"
+    monkeypatch.setenv("TODO_TASK_FILE", str(task_file))
+
+    run_cli(
+        monkeypatch,
+        ["add", "--title", "CLI Task", "--date", "2022-02-22"],
+    )
+
+    run_cli(monkeypatch, ["week"])
+    assert "Wed" in capsys.readouterr().out
+    
+def test_cli_month(tmp_path, monkeypatch, capsys):
+    task_file = tmp_path / "tasks.json"
+    monkeypatch.setenv("TODO_TASK_FILE", str(task_file))
+
+    run_cli(
+        monkeypatch,
+        ["add", "--title", "CLI Task", "--date", "2022-02-22"],
+    )
+
+    run_cli(monkeypatch, ["month"])
+    assert "Mon" in capsys.readouterr().out
+
+def test_cli_unknown(monkeypatch):
+    with pytest.raises(SystemExit):
+        run_cli(monkeypatch, ["unknown"])
