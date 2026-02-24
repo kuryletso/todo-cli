@@ -77,7 +77,7 @@ def render_week(
     for col in columns:
         while len(col) < max_height:
             col.append("")
-    print(columns)    
+ 
     # Render row by row
     lines = []
     border = _build_border()

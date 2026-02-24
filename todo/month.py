@@ -46,14 +46,15 @@ def render_month(
     lines.append(f"{date(year,month,1):%B %Y}")
     lines.append(" ".join(f"{wd:^3}" for wd in WEEKDAYS))
 
+    # Dates
     current_week = ["   "] * first_weekday
     for day in range(1, days_in_month+1):
         cnt = day_task_cnt[day]
-        day_str = f"{day:>2}"
+        day_str = f"{day:>3}"
 
         if color_enabled and cnt > 0:
             color = _heat_color(cnt)
-            cell = f"{color} {day_str}{RESET}"
+            cell = f"{color}{day_str}{RESET}"
         else:
             cell = f"{day_str}"
         
