@@ -1,6 +1,7 @@
 from datetime import date, timedelta
 from collections.abc import Sequence
 from todo.models import Task, Status
+import re
 
 RESET = "\033[0m"
 BG_COLOR = "\u001b[40m" #"\033[46m"
@@ -11,6 +12,7 @@ STATUS_COLORS = {
 }
 
 COLUMN_WIDTH = 22
+ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
 
 def _colorize(text: str, status: Status, color_enabled: bool, highlight_today: bool = False) -> str:
     if not color_enabled:
@@ -28,6 +30,12 @@ def _truncate(text: str, width: int) -> str:
 def _build_border() -> str:
     cell = "+" + "+".join(["-" * COLUMN_WIDTH] * 7) + "+"
     return cell
+
+def _ansi_ljust(s: str, width: int) -> str:
+    pad = width - len(ANSI_ESCAPE.sub("", s))
+    if pad > 0:
+        return s + " " * pad
+    return s
 
 def render_week(
     tasks: Sequence[Task],
@@ -83,7 +91,7 @@ def render_week(
         row_cells = []
         for col in columns:
             cell = col[row]
-            row_cells.append(cell.ljust(COLUMN_WIDTH))
+            row_cells.append(_ansi_ljust(cell, COLUMN_WIDTH))
         lines.append("|" + "|".join(row_cells) + "|")
 
         if row == 0:
